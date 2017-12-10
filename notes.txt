@@ -1,0 +1,37 @@
+Planning Notes
+
+Snippet
+ private
+  fTitle:string;
+  fCode:string;
+  fTag:TStringList(?)…stored as text?
+  fIndex:integer
+ public
+  properties for each field, read/write
+end
+
+Snippets
+ private
+  database (which has fields for index, title, code, tags)
+ public
+  constructor Create //open a connection to the db
+  destructor Destroy //close the connection to the db
+  procedure Add (Snippet) //insert into db the title, text, tags…
+  procedure Delete (Snippet)//delete from db…how do we select Snippet to pass?
+  procedure Update (Snippet.index?)//update db where …call this every 5 or 10 seconds, checking first to see if it’s in editing state?
+  procedure Update (Snippet)//call the other Edit, pass in the index
+  procedure SelectItems(tags)//select from db where tags=a list of tags
+ end
+
+MainForm will need an UpdateDisplay method,
+a timer to call Update every few seconds
+UpdateDisplay will capture Memo.Lines, make Lines[0] the title, everything else the code
+When user clicks NewNote, clear the Memo, insert
+a new record [maybe waiting for at least one CRLF?], and go back to UpdateDisplay
+
+Maybe have ListView display titles
+(and tags?), SynEdit display code-formatted text?
+
+Need events for the Memo and
+ListView so that when they're changed, a different db entry is selected (and, if
+the ListView is selected, code corresponding to the title is displayed).
