@@ -12,6 +12,7 @@ object frmMain: TfrmMain
   Font.Style = []
   OldCreateOrder = False
   Position = poDesigned
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Splitter1: TSplitter
@@ -29,9 +30,6 @@ object frmMain: TfrmMain
     Height = 29
     Caption = 'ToolBar1'
     TabOrder = 0
-    ExplicitLeft = 408
-    ExplicitTop = 368
-    ExplicitWidth = 150
   end
   object ListView1: TListView
     Left = 0
@@ -41,9 +39,6 @@ object frmMain: TfrmMain
     Align = alLeft
     Columns = <>
     TabOrder = 1
-    ExplicitLeft = 360
-    ExplicitTop = 304
-    ExplicitHeight = 150
   end
   object SynEdit1: TSynEdit
     Left = 253
@@ -53,8 +48,9 @@ object frmMain: TfrmMain
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Courier New'
+    Font.Height = -15
+    Font.Name = 'Consolas'
+    Font.Pitch = fpFixed
     Font.Style = []
     TabOrder = 2
     Gutter.Font.Charset = DEFAULT_CHARSET
@@ -62,12 +58,35 @@ object frmMain: TfrmMain
     Gutter.Font.Height = -11
     Gutter.Font.Name = 'Courier New'
     Gutter.Font.Style = []
+    Highlighter = SynDWSSyn1
     Lines.Strings = (
-      'SynEdit1')
+      'function TDataModule1.Test: string;'
+      'var'
+      '  sl: TStringList;'
+      'begin'
+      '    sl:=TStringList.Create;'
+      '    Query.SQL.Text:='#39'select * from Snippets'#39';'
+      '    Query.Active:=true;'
+      '  if not Query.IsEmpty then'
+      '  begin'
+      '    Query.First;'
+      '    while not Query.Eof do'
+      '    begin'
+      '      sl.Add(Query.FieldByName('#39'title'#39').AsString);'
+      '      Query.Next;'
+      '    end;'
+      '  end;'
+      '  result:=sl.Text;'
+      ''
+      'end;')
     FontSmoothing = fsmNone
-    ExplicitLeft = 384
-    ExplicitTop = 304
-    ExplicitWidth = 200
-    ExplicitHeight = 150
+  end
+  object SynDWSSyn1: TSynDWSSyn
+    DefaultFilter = 'DWScript Files (*.dws;*.pas;*.inc)|*.dws;*.pas;*.inc'
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 8
+    Top = 8
   end
 end
