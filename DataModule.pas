@@ -50,7 +50,7 @@ begin
       Query.Next;
     end;
   end;
-  result := sl.Text;
+  result := sl.CommaText;
 
 end;
 

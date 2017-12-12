@@ -17,8 +17,8 @@ object frmMain: TfrmMain
   TextHeight = 13
   object Splitter1: TSplitter
     Left = 250
-    Top = 29
-    Height = 696
+    Top = 33
+    Height = 692
     ExplicitLeft = 480
     ExplicitTop = 336
     ExplicitHeight = 100
@@ -27,24 +27,55 @@ object frmMain: TfrmMain
     Left = 0
     Top = 0
     Width = 948
-    Height = 29
+    Height = 33
+    AutoSize = True
+    ButtonHeight = 31
+    ButtonWidth = 44
     Caption = 'ToolBar1'
+    Flat = False
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    ShowCaptions = True
     TabOrder = 0
+    object btnNew: TToolButton
+      AlignWithMargins = True
+      Left = 0
+      Top = 0
+      Caption = 'New'
+      ImageIndex = 0
+      Style = tbsTextButton
+    end
   end
   object ListView1: TListView
     Left = 0
-    Top = 29
+    Top = 33
     Width = 250
-    Height = 696
+    Height = 692
     Align = alLeft
+    BorderWidth = 10
     Columns = <>
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
     TabOrder = 1
+    ViewStyle = vsReport
+    OnSelectItem = ListView1SelectItem
+    ExplicitLeft = -3
+    ExplicitTop = 35
+    ExplicitHeight = 696
   end
   object SynEdit1: TSynEdit
     Left = 253
-    Top = 29
+    Top = 33
     Width = 695
-    Height = 696
+    Height = 692
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -80,13 +111,15 @@ object frmMain: TfrmMain
       ''
       'end;')
     FontSmoothing = fsmNone
+    ExplicitTop = 29
+    ExplicitHeight = 696
   end
   object SynDWSSyn1: TSynDWSSyn
     DefaultFilter = 'DWScript Files (*.dws;*.pas;*.inc)|*.dws;*.pas;*.inc'
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 8
-    Top = 8
+    Left = 552
+    Top = 432
   end
 end
