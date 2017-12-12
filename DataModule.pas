@@ -15,7 +15,8 @@ type
     { Private declarations }
   public
     { Public declarations }
-    function Test: string;
+    function GetTitles: string;
+    function GetTitleAndCode (aTitle:string):string;
   end;
 
 var
@@ -34,12 +35,30 @@ begin
   Connection.Connected := true;
 end;
 
-function TDataModule1.Test: string;
+function TDataModule1.GetTitleAndCode(aTitle: string): string;
+var
+  sl:TStringList;
+begin
+  sl:=TStringList.Create;
+  try
+  Query.SQL.Text:= 'select code from Snippets where title=:aTitle';
+  Query.ParamByName('aTitle').AsString := aTitle;
+  Query.Active:=true;
+  sl.Add(aTitle);
+  sl.Add('');
+  sl.Add(Query.FieldByName('code').AsString);
+  result:=sl.Text;
+  finally
+    sl.Free;
+  end;
+end;
+
+function TDataModule1.GetTitles: string;
 var
   sl: TStringList;
 begin
   sl := TStringList.Create;
-  Query.SQL.Text := 'select * from Snippets';
+  Query.SQL.Text := 'select title from Snippets';
   Query.Active := true;
   if not Query.IsEmpty then
   begin

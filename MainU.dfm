@@ -3,7 +3,7 @@ object frmMain: TfrmMain
   Top = 156
   Caption = 'Code Snippets'
   ClientHeight = 725
-  ClientWidth = 948
+  ClientWidth = 1026
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -26,7 +26,7 @@ object frmMain: TfrmMain
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 948
+    Width = 1026
     Height = 33
     AutoSize = True
     ButtonHeight = 31
@@ -41,6 +41,7 @@ object frmMain: TfrmMain
     ParentFont = False
     ShowCaptions = True
     TabOrder = 0
+    ExplicitWidth = 948
     object btnNew: TToolButton
       AlignWithMargins = True
       Left = 0
@@ -74,7 +75,7 @@ object frmMain: TfrmMain
   object SynEdit1: TSynEdit
     Left = 253
     Top = 33
-    Width = 695
+    Width = 773
     Height = 692
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
@@ -97,21 +98,39 @@ object frmMain: TfrmMain
       'begin'
       '    sl:=TStringList.Create;'
       '    Query.SQL.Text:='#39'select * from Snippets'#39';'
-      '    Query.Active:=true;'
-      '  if not Query.IsEmpty then'
-      '  begin'
-      '    Query.First;'
-      '    while not Query.Eof do'
-      '    begin'
-      '      sl.Add(Query.FieldByName('#39'title'#39').AsString);'
-      '      Query.Next;'
-      '    end;'
-      '  end;'
-      '  result:=sl.Text;'
+      
+        'procedure TfrmMain.ListView1SelectItem(Sender: TObject; Item: TL' +
+        'istItem;'
+      '  Selected: Boolean);'
+      'begin'
+      
+        '  {This event is called multiple times when moving from one item' +
+        ' to the next'
+      
+        '  to have it fire only when the selected item has actually chang' +
+        'ed:'
+      '  if Item <> fSelItem then'
+      '    showmessage('#39'selected'#39');'
+      
+        '   and remember the selected item (fSelItem is a class level var' +
+        'iable)'
+      '  fSelItem := Item;}'
       ''
-      'end;')
+      '  //or do it this way:'
+      '  if Selected=true then'
+      '  showmessage('#39'selected'#39');'
+      
+        '  {The OnSelectItem event tells you the item being changed and w' +
+        'hether it is being'
+      
+        '  selected or unselected. So it makes sense to get two event tri' +
+        'ggers, one for the'
+      
+        '  old item that is being unselected, and one for the new item th' +
+        'at is becoming selected.}')
     FontSmoothing = fsmNone
     ExplicitTop = 29
+    ExplicitWidth = 695
     ExplicitHeight = 696
   end
   object SynDWSSyn1: TSynDWSSyn

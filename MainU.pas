@@ -21,7 +21,6 @@ type
       Selected: Boolean);
   private
     { Private declarations }
-    fSelItem: TListItem;
   public
     { Public declarations }
   end;
@@ -48,7 +47,7 @@ begin
   ListView1.Items.BeginUpdate;
   sl := TStringList.Create;
   try
-    sl.CommaText := DM.Test;
+    sl.CommaText := DM.GetTitles;
     for I := 0 to sl.Count - 1 do
     begin
       Item := ListView1.Items.Add;
@@ -65,13 +64,22 @@ end;
 procedure TfrmMain.ListView1SelectItem(Sender: TObject; Item: TListItem;
   Selected: Boolean);
 begin
-  // this event is called multiple times when moving from one item to the next
-  // to have it fire only when the selected item has actually changed:
+  SynEdit1.Lines.Clear;
+  {This event is called multiple times when moving from one item to the next
+  to have it fire only when the selected item has actually changed:
   if Item <> fSelItem then
     showmessage('selected');
+   and remember the selected item (fSelItem is a class level variable)
+  fSelItem := Item;}
 
-  // remember the selected item (fSelItem is a class level variable)
-  fSelItem := Item;
+  //or do it this way:
+  if Selected=true then
+  begin
+  SynEdit1.Text:=DM.GetTitleAndCode(Item.Caption);
+  end;
+  {The OnSelectItem event tells you the item being changed and whether it is being
+  selected or unselected. So it makes sense to get two event triggers, one for the
+  old item that is being unselected, and one for the new item that is becoming selected.}
 end;
 
 end.
