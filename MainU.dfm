@@ -49,6 +49,7 @@ object frmMain: TfrmMain
       Caption = 'New'
       ImageIndex = 0
       Style = tbsTextButton
+      OnClick = btnNewClick
     end
   end
   object ListView1: TListView
