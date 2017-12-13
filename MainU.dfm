@@ -55,6 +55,7 @@ object frmMain: TfrmMain
       Top = 0
       Caption = 'Save New'
       ImageIndex = 1
+      OnClick = btnSaveNewClick
     end
   end
   object ListView1: TListView
@@ -64,7 +65,11 @@ object frmMain: TfrmMain
     Height = 692
     Align = alLeft
     BorderWidth = 10
-    Columns = <>
+    Columns = <
+      item
+        AutoSize = True
+        Caption = 'TITLE'
+      end>
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -19
@@ -101,43 +106,6 @@ object frmMain: TfrmMain
       Gutter.Font.Name = 'Courier New'
       Gutter.Font.Style = []
       Highlighter = SynDWSSyn1
-      Lines.Strings = (
-        'function TDataModule1.Test: string;'
-        'var'
-        '  sl: TStringList;'
-        'begin'
-        '    sl:=TStringList.Create;'
-        '    Query.SQL.Text:='#39'select * from Snippets'#39';'
-        
-          'procedure TfrmMain.ListView1SelectItem(Sender: TObject; Item: TL' +
-          'istItem;'
-        '  Selected: Boolean);'
-        'begin'
-        
-          '  {This event is called multiple times when moving from one item' +
-          ' to the next'
-        
-          '  to have it fire only when the selected item has actually chang' +
-          'ed:'
-        '  if Item <> fSelItem then'
-        '    showmessage('#39'selected'#39');'
-        
-          '   and remember the selected item (fSelItem is a class level var' +
-          'iable)'
-        '  fSelItem := Item;}'
-        ''
-        '  //or do it this way:'
-        '  if Selected=true then'
-        '  showmessage('#39'selected'#39');'
-        
-          '  {The OnSelectItem event tells you the item being changed and w' +
-          'hether it is being'
-        
-          '  selected or unselected. So it makes sense to get two event tri' +
-          'ggers, one for the'
-        
-          '  old item that is being unselected, and one for the new item th' +
-          'at is becoming selected.}')
       FontSmoothing = fsmNone
     end
     object Panel2: TPanel

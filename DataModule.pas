@@ -35,7 +35,7 @@ begin
   Query.SQL.Text:='insert into Snippets (title, code) values (:aTitle, :aCode)';
   Query.ParamByName('aTitle').AsString := aTitle;
   Query.ParamByName('aCode').AsString := aCode;
-  Query.Active:=true;
+  Query.ExecSQL();
 end;
 
 procedure TDataModule1.DataModuleCreate(Sender: TObject);
