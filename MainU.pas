@@ -39,13 +39,12 @@ implementation
 {$R *.dfm}
 
 procedure TfrmMain.btnNewClick(Sender: TObject);
-var
-  item: TListItem;
 begin
   SynEdit1.Clear;
-  item:=ListView1.Items.Add;
+  edtTitle.Clear;
+  //item:=ListView1.Items.Add;
   //as soon as user hits return then? ...
-  item.Caption:=SynEdit1.Lines[0]; //first row in memo
+  //item.Caption:=SynEdit1.Lines[0]; //first row in memo
   //add a new record to db
   //use a timer (triggered within SynEdit on change?) to periodically update the new record
   //UPDATE Snippets SET code=:code WHERE title=:title

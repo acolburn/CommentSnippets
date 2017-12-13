@@ -83,10 +83,6 @@ object frmMain: TfrmMain
     Align = alClient
     Caption = 'Panel1'
     TabOrder = 2
-    ExplicitLeft = 272
-    ExplicitTop = 49
-    ExplicitWidth = 649
-    ExplicitHeight = 616
     object SynEdit1: TSynEdit
       Left = -13
       Top = 43
@@ -151,15 +147,13 @@ object frmMain: TfrmMain
       Height = 41
       Align = alTop
       TabOrder = 1
-      ExplicitLeft = 3
-      ExplicitTop = 6
       DesignSize = (
         771
         41)
       object Label1: TLabel
         Left = 14
         Top = 12
-        Width = 65
+        Width = 37
         Height = 19
         Caption = 'Title:'
         Font.Charset = DEFAULT_CHARSET

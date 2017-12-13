@@ -17,6 +17,7 @@ type
     { Public declarations }
     function GetTitles: string;
     function GetTitleAndCode (aTitle:string):string;
+    procedure Add (aTitle:string; aCode:string);
   end;
 
 var
@@ -29,6 +30,14 @@ implementation
 {$R *.dfm}
 
 // see http://docwiki.embarcadero.com/RADStudio/XE8/en/Tutorial:_Connecting_to_a_SQLite_Database_from_a_VCL_Application
+procedure TDataModule1.Add(aTitle, aCode: string);
+begin
+  Query.SQL.Text:='insert into Snippets (title, code) values (:aTitle, :aCode)';
+  Query.ParamByName('aTitle').AsString := aTitle;
+  Query.ParamByName('aCode').AsString := aCode;
+  Query.Active:=true;
+end;
+
 procedure TDataModule1.DataModuleCreate(Sender: TObject);
 begin
   Connection.Params.Add('Database=.\Snippets.db');
