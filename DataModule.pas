@@ -44,8 +44,8 @@ begin
   Query.SQL.Text:= 'select code from Snippets where title=:aTitle';
   Query.ParamByName('aTitle').AsString := aTitle;
   Query.Active:=true;
-  sl.Add(aTitle);
-  sl.Add('');
+  //sl.Add(aTitle);
+  //sl.Add('');
   sl.Add(Query.FieldByName('code').AsString);
   result:=sl.Text;
   finally

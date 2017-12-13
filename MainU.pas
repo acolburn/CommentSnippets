@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, SynEdit, Vcl.ExtCtrls, Vcl.ComCtrls,
-  Vcl.ToolWin, DataModule, SynEditHighlighter, SynHighlighterDWS;
+  Vcl.ToolWin, DataModule, SynEditHighlighter, SynHighlighterDWS, Vcl.StdCtrls;
 
 type
   TfrmMain = class(TForm)
@@ -16,6 +16,11 @@ type
     SynEdit1: TSynEdit;
     SynDWSSyn1: TSynDWSSyn;
     btnNew: TToolButton;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Label1: TLabel;
+    edtTitle: TEdit;
+    btnSaveNew: TToolButton;
     procedure FormShow(Sender: TObject);
     procedure ListView1SelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
@@ -89,6 +94,8 @@ begin
   //or do it this way:
   if Selected=true then
   begin
+  //display title
+  edtTitle.Text:=Item.Caption;
   SynEdit1.Text:=DM.GetTitleAndCode(Item.Caption);
   end;
   {The OnSelectItem event tells you the item being changed and whether it is being

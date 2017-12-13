@@ -30,7 +30,7 @@ object frmMain: TfrmMain
     Height = 33
     AutoSize = True
     ButtonHeight = 31
-    ButtonWidth = 44
+    ButtonWidth = 90
     Caption = 'ToolBar1'
     Flat = False
     Font.Charset = DEFAULT_CHARSET
@@ -41,7 +41,6 @@ object frmMain: TfrmMain
     ParentFont = False
     ShowCaptions = True
     TabOrder = 0
-    ExplicitWidth = 948
     object btnNew: TToolButton
       AlignWithMargins = True
       Left = 0
@@ -50,6 +49,12 @@ object frmMain: TfrmMain
       ImageIndex = 0
       Style = tbsTextButton
       OnClick = btnNewClick
+    end
+    object btnSaveNew: TToolButton
+      Left = 90
+      Top = 0
+      Caption = 'Save New'
+      ImageIndex = 1
     end
   end
   object ListView1: TListView
@@ -69,70 +74,116 @@ object frmMain: TfrmMain
     TabOrder = 1
     ViewStyle = vsReport
     OnSelectItem = ListView1SelectItem
-    ExplicitLeft = -3
-    ExplicitTop = 35
-    ExplicitHeight = 696
   end
-  object SynEdit1: TSynEdit
+  object Panel1: TPanel
     Left = 253
     Top = 33
     Width = 773
     Height = 692
     Align = alClient
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -15
-    Font.Name = 'Consolas'
-    Font.Pitch = fpFixed
-    Font.Style = []
+    Caption = 'Panel1'
     TabOrder = 2
-    Gutter.Font.Charset = DEFAULT_CHARSET
-    Gutter.Font.Color = clWindowText
-    Gutter.Font.Height = -11
-    Gutter.Font.Name = 'Courier New'
-    Gutter.Font.Style = []
-    Highlighter = SynDWSSyn1
-    Lines.Strings = (
-      'function TDataModule1.Test: string;'
-      'var'
-      '  sl: TStringList;'
-      'begin'
-      '    sl:=TStringList.Create;'
-      '    Query.SQL.Text:='#39'select * from Snippets'#39';'
-      
-        'procedure TfrmMain.ListView1SelectItem(Sender: TObject; Item: TL' +
-        'istItem;'
-      '  Selected: Boolean);'
-      'begin'
-      
-        '  {This event is called multiple times when moving from one item' +
-        ' to the next'
-      
-        '  to have it fire only when the selected item has actually chang' +
-        'ed:'
-      '  if Item <> fSelItem then'
-      '    showmessage('#39'selected'#39');'
-      
-        '   and remember the selected item (fSelItem is a class level var' +
-        'iable)'
-      '  fSelItem := Item;}'
-      ''
-      '  //or do it this way:'
-      '  if Selected=true then'
-      '  showmessage('#39'selected'#39');'
-      
-        '  {The OnSelectItem event tells you the item being changed and w' +
-        'hether it is being'
-      
-        '  selected or unselected. So it makes sense to get two event tri' +
-        'ggers, one for the'
-      
-        '  old item that is being unselected, and one for the new item th' +
-        'at is becoming selected.}')
-    FontSmoothing = fsmNone
-    ExplicitTop = 29
-    ExplicitWidth = 695
-    ExplicitHeight = 696
+    ExplicitLeft = 272
+    ExplicitTop = 49
+    ExplicitWidth = 649
+    ExplicitHeight = 616
+    object SynEdit1: TSynEdit
+      Left = -13
+      Top = 43
+      Width = 773
+      Height = 629
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Consolas'
+      Font.Pitch = fpFixed
+      Font.Style = []
+      TabOrder = 0
+      Gutter.Font.Charset = DEFAULT_CHARSET
+      Gutter.Font.Color = clWindowText
+      Gutter.Font.Height = -11
+      Gutter.Font.Name = 'Courier New'
+      Gutter.Font.Style = []
+      Highlighter = SynDWSSyn1
+      Lines.Strings = (
+        'function TDataModule1.Test: string;'
+        'var'
+        '  sl: TStringList;'
+        'begin'
+        '    sl:=TStringList.Create;'
+        '    Query.SQL.Text:='#39'select * from Snippets'#39';'
+        
+          'procedure TfrmMain.ListView1SelectItem(Sender: TObject; Item: TL' +
+          'istItem;'
+        '  Selected: Boolean);'
+        'begin'
+        
+          '  {This event is called multiple times when moving from one item' +
+          ' to the next'
+        
+          '  to have it fire only when the selected item has actually chang' +
+          'ed:'
+        '  if Item <> fSelItem then'
+        '    showmessage('#39'selected'#39');'
+        
+          '   and remember the selected item (fSelItem is a class level var' +
+          'iable)'
+        '  fSelItem := Item;}'
+        ''
+        '  //or do it this way:'
+        '  if Selected=true then'
+        '  showmessage('#39'selected'#39');'
+        
+          '  {The OnSelectItem event tells you the item being changed and w' +
+          'hether it is being'
+        
+          '  selected or unselected. So it makes sense to get two event tri' +
+          'ggers, one for the'
+        
+          '  old item that is being unselected, and one for the new item th' +
+          'at is becoming selected.}')
+      FontSmoothing = fsmNone
+    end
+    object Panel2: TPanel
+      Left = 1
+      Top = 1
+      Width = 771
+      Height = 41
+      Align = alTop
+      TabOrder = 1
+      ExplicitLeft = 3
+      ExplicitTop = 6
+      DesignSize = (
+        771
+        41)
+      object Label1: TLabel
+        Left = 14
+        Top = 12
+        Width = 65
+        Height = 19
+        Caption = 'Title:'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object edtTitle: TEdit
+        Left = 60
+        Top = 9
+        Width = 671
+        Height = 27
+        Anchors = [akLeft, akTop, akRight]
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+      end
+    end
   end
   object SynDWSSyn1: TSynDWSSyn
     DefaultFilter = 'DWScript Files (*.dws;*.pas;*.inc)|*.dws;*.pas;*.inc'
