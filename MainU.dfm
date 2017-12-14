@@ -57,6 +57,13 @@ object frmMain: TfrmMain
       ImageIndex = 1
       OnClick = btnSaveNewClick
     end
+    object btnDelete: TToolButton
+      Left = 180
+      Top = 0
+      Caption = 'Delete'
+      ImageIndex = 2
+      OnClick = btnDeleteClick
+    end
   end
   object ListView1: TListView
     Left = 0
@@ -68,7 +75,6 @@ object frmMain: TfrmMain
     Columns = <
       item
         AutoSize = True
-        Caption = 'TITLE'
       end>
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText

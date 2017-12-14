@@ -18,6 +18,7 @@ type
     function GetTitles: string;
     function GetTitleAndCode (aTitle:string):string;
     procedure Add (aTitle:string; aCode:string);
+    procedure Delete (aTitle:string);
   end;
 
 var
@@ -42,6 +43,13 @@ procedure TDataModule1.DataModuleCreate(Sender: TObject);
 begin
   Connection.Params.Add('Database=.\Snippets.db');
   Connection.Connected := true;
+end;
+
+procedure TDataModule1.Delete(aTitle: string);
+begin
+  Query.SQL.Text := 'delete from Snippets where title=:aTitle';
+  Query.ParamByName('aTitle').AsString := aTitle;
+  Query.ExecSQL();
 end;
 
 function TDataModule1.GetTitleAndCode(aTitle: string): string;

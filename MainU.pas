@@ -21,11 +21,13 @@ type
     Label1: TLabel;
     edtTitle: TEdit;
     btnSaveNew: TToolButton;
+    btnDelete: TToolButton;
     procedure FormShow(Sender: TObject);
     procedure ListView1SelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
     procedure btnNewClick(Sender: TObject);
     procedure btnSaveNewClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
   private
     { Private declarations }
     procedure UpdateDisplay;
@@ -39,6 +41,14 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmMain.btnDeleteClick(Sender: TObject);
+begin
+  DM.Delete(edtTitle.Text);
+  SynEdit1.Clear;
+  edtTitle.Clear;
+  UpdateDisplay;
+end;
 
 procedure TfrmMain.btnNewClick(Sender: TObject);
 begin
