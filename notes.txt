@@ -38,7 +38,7 @@ the ListView is selected, code corresponding to the title is displayed).
 
 //TODO
 save button should be inactive except after new button clicked
-ability to change/edit memo text
+ability to change/edit memo text...update, except when you're inserting a new record...
 ability to change/edit title text
 add tag functionality--include optional tags with new records, add tags to existing records, sort records by tag
 (opt.) eliminate edit box, use first row of memo as title--when adding new records, when displaying existing records + editing titles
