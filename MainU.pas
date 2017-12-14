@@ -56,6 +56,7 @@ procedure TfrmMain.btnNewClick(Sender: TObject);
 begin
   SynEdit1.Clear;
   edtTitle.Clear;
+  ListView1.Selected:=nil;
   //item:=ListView1.Items.Add;
   //as soon as user hits return then? ...
   //item.Caption:=SynEdit1.Lines[0]; //first row in memo
@@ -75,33 +76,8 @@ begin
 end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
-var
-  sl: TStringList;
-  Item: TListItem;
-  col: TListColumn;
-  I: Integer;
 begin
-  //col := ListView1.Columns.Add;
-  //col.Caption := 'Title';
-  //col.Width:=ListView1.Width-2;
-  // col:=ListView1.Columns.Add;
-  // col.Caption:='Index';
-
-  ListView1.Items.BeginUpdate;
-  sl := TStringList.Create;
-  try
-    sl.CommaText := DM.GetTitles;
-    for I := 0 to sl.Count - 1 do
-    begin
-      Item := ListView1.Items.Add;
-      Item.Caption := sl[I];
-      Item.SubItems.Add(inttostr(I));
-    end;
-  finally
-    sl.Free;
-  end;
-  ListView1.Items.EndUpdate;
-
+  UpdateDisplay;
 end;
 
 procedure TfrmMain.ListView1SelectItem(Sender: TObject; Item: TListItem;

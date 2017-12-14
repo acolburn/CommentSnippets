@@ -17,8 +17,8 @@ object frmMain: TfrmMain
   TextHeight = 13
   object Splitter1: TSplitter
     Left = 250
-    Top = 44
-    Height = 681
+    Top = 27
+    Height = 698
     ExplicitLeft = 480
     ExplicitTop = 336
     ExplicitHeight = 100
@@ -27,10 +27,10 @@ object frmMain: TfrmMain
     Left = 0
     Top = 0
     Width = 1026
-    Height = 44
+    Height = 27
     AutoSize = True
-    ButtonHeight = 42
-    ButtonWidth = 76
+    ButtonHeight = 25
+    ButtonWidth = 96
     Caption = 'ToolBar1'
     Flat = False
     Font.Charset = DEFAULT_CHARSET
@@ -39,6 +39,7 @@ object frmMain: TfrmMain
     Font.Name = 'Tahoma'
     Font.Style = []
     Images = ImageList1
+    List = True
     ParentFont = False
     ShowCaptions = True
     TabOrder = 0
@@ -46,21 +47,23 @@ object frmMain: TfrmMain
       AlignWithMargins = True
       Left = 0
       Top = 0
+      AutoSize = True
       Caption = 'New'
       ImageIndex = 2
-      Style = tbsTextButton
       OnClick = btnNewClick
     end
     object btnSaveNew: TToolButton
-      Left = 76
+      Left = 62
       Top = 0
+      AutoSize = True
       Caption = 'Save New'
       ImageIndex = 1
       OnClick = btnSaveNewClick
     end
     object btnDelete: TToolButton
-      Left = 152
+      Left = 162
       Top = 0
+      AutoSize = True
       Caption = 'Delete'
       ImageIndex = 0
       OnClick = btnDeleteClick
@@ -68,9 +71,9 @@ object frmMain: TfrmMain
   end
   object ListView1: TListView
     Left = 0
-    Top = 44
+    Top = 27
     Width = 250
-    Height = 681
+    Height = 698
     Align = alLeft
     BorderWidth = 10
     Columns = <
@@ -83,22 +86,23 @@ object frmMain: TfrmMain
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
+    ShowColumnHeaders = False
     TabOrder = 1
     ViewStyle = vsReport
     OnSelectItem = ListView1SelectItem
-    ExplicitTop = 33
-    ExplicitHeight = 692
+    ExplicitTop = 44
+    ExplicitHeight = 681
   end
   object Panel1: TPanel
     Left = 253
-    Top = 44
+    Top = 27
     Width = 773
-    Height = 681
+    Height = 698
     Align = alClient
     Caption = 'Panel1'
     TabOrder = 2
-    ExplicitTop = 33
-    ExplicitHeight = 692
+    ExplicitTop = 44
+    ExplicitHeight = 681
     object SynEdit1: TSynEdit
       Left = -13
       Top = 43
@@ -170,7 +174,7 @@ object frmMain: TfrmMain
     Left = 504
     Top = 368
     Bitmap = {
-      494C010103000800200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
