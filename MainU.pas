@@ -21,14 +21,14 @@ type
     Panel2: TPanel;
     Label1: TLabel;
     edtTitle: TEdit;
-    btnSaveNew: TToolButton;
+    btnSave: TToolButton;
     btnDelete: TToolButton;
     ImageList1: TImageList;
     procedure FormShow(Sender: TObject);
     procedure ListView1SelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
     procedure btnNewClick(Sender: TObject);
-    procedure btnSaveNewClick(Sender: TObject);
+    procedure btnSaveClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
   private
     { Private declarations }
@@ -54,6 +54,7 @@ end;
 
 procedure TfrmMain.btnNewClick(Sender: TObject);
 begin
+  DM.EditMode:=new;
   SynEdit1.Clear;
   edtTitle.Clear;
   ListView1.Selected:=nil;
@@ -65,42 +66,53 @@ begin
   //UPDATE Snippets SET code=:code WHERE title=:title
 end;
 
-procedure TfrmMain.btnSaveNewClick(Sender: TObject);
+procedure TfrmMain.btnSaveClick(Sender: TObject);
 var
   aTitle, aCode: string;
 begin
   aTitle:=edtTitle.Text;
   aCode:=SynEdit1.Text;
+  if DM.EditMode=new then
+   begin
   DM.Add(aTitle,aCode);
+  DM.EditMode:=edit;
+   end
+   else
+   DM.Update(aTitle,aCode);
+
   UpdateDisplay;
 end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
   UpdateDisplay;
+  DM.EditMode:=edit;
 end;
 
+  {The OnSelectItem event tells you the item being changed and whether it is being
+  selected or unselected. So it is triggered when the
+  old item is being unselected, AND AGAIN for the new item that is becoming selected.}
 procedure TfrmMain.ListView1SelectItem(Sender: TObject; Item: TListItem;
   Selected: Boolean);
 begin
   SynEdit1.Lines.Clear;
-  {This event is called multiple times when moving from one item to the next
-  to have it fire only when the selected item has actually changed:
-  if Item <> fSelItem then
-    showmessage('selected');
-   and remember the selected item (fSelItem is a class level variable)
-  fSelItem := Item;}
 
-  //or do it this way:
+  //Selected=false when the old item is being unselected
+//  if Selected=false then
+//  begin
+//    DM.SelTitle:=Item.Caption;
+//  end;
+
+
+  //Selected=true when the new item is being selected
   if Selected=true then
   begin
   //display title
   edtTitle.Text:=Item.Caption;
-  SynEdit1.Text:=DM.GetTitleAndCode(Item.Caption);
+  SynEdit1.Text:=DM.GetCode(Item.Caption);
+  DM.SelTitle:=Item.Caption;
   end;
-  {The OnSelectItem event tells you the item being changed and whether it is being
-  selected or unselected. So it makes sense to get two event triggers, one for the
-  old item that is being unselected, and one for the new item that is becoming selected.}
+
 end;
 
 procedure TfrmMain.UpdateDisplay;
@@ -118,7 +130,6 @@ begin
     begin
       Item := ListView1.Items.Add;
       Item.Caption := sl[I];
-      Item.SubItems.Add(inttostr(I));
     end;
   finally
     sl.Free;

@@ -7,19 +7,28 @@ uses
   Data.DbxSqlite;
 
 type
+  TEditMode=(edit,new);
+
   TDataModule1 = class(TDataModule)
     Connection: TSQLConnection;
     Query: TSQLQuery;
     procedure DataModuleCreate(Sender: TObject);
   private
+    FSelTitle: string;
+    FEditMode:TEditMode;
     { Private declarations }
   public
     { Public declarations }
+    property SelTitle: string read FSelTitle write FSelTitle;
+    property EditMode: TEditMode read FEditMode write FEditMode;
     function GetTitles: string;
-    function GetTitleAndCode (aTitle:string):string;
+    function GetCode (aTitle:string):string;
     procedure Add (aTitle:string; aCode:string);
     procedure Delete (aTitle:string);
+    procedure Update(newTitle:string; aCode:string);
   end;
+
+
 
 var
   DM: TDataModule1;
@@ -30,7 +39,7 @@ implementation
 
 {$R *.dfm}
 
-// see http://docwiki.embarcadero.com/RADStudio/XE8/en/Tutorial:_Connecting_to_a_SQLite_Database_from_a_VCL_Application
+
 procedure TDataModule1.Add(aTitle, aCode: string);
 begin
   Query.SQL.Text:='insert into Snippets (title, code) values (:aTitle, :aCode)';
@@ -39,6 +48,7 @@ begin
   Query.ExecSQL();
 end;
 
+// see http://docwiki.embarcadero.com/RADStudio/XE8/en/Tutorial:_Connecting_to_a_SQLite_Database_from_a_VCL_Application
 procedure TDataModule1.DataModuleCreate(Sender: TObject);
 begin
   Connection.Params.Add('Database=.\Snippets.db');
@@ -52,7 +62,7 @@ begin
   Query.ExecSQL();
 end;
 
-function TDataModule1.GetTitleAndCode(aTitle: string): string;
+function TDataModule1.GetCode(aTitle: string): string;
 var
   sl:TStringList;
 begin
@@ -88,6 +98,23 @@ begin
   end;
   result := sl.CommaText;
 
+end;
+
+procedure TDataModule1.Update(newTitle, aCode: string);
+begin
+  //title field unchanged
+  if (FSelTitle=newTitle) then
+    Query.SQL.Text := 'update Snippets set code=:aCode where title=:oldTitle'
+  //title field changed
+  else if (FSelTitle<>newTitle) then
+  begin
+    Query.SQL.Text:='update Snippets set code=:aCode, title=:newTitle where title=:oldTitle';
+    Query.ParamByName('newTitle').AsString:=newTitle;
+  end;
+  Query.ParamByName('aCode').AsString:=aCode;
+  Query.ParamByName('oldTitle').AsString:=FSelTitle;
+
+  Query.ExecSQL();
 end;
 
 end.

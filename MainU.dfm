@@ -30,7 +30,7 @@ object frmMain: TfrmMain
     Height = 27
     AutoSize = True
     ButtonHeight = 25
-    ButtonWidth = 96
+    ButtonWidth = 71
     Caption = 'ToolBar1'
     Flat = False
     Font.Charset = DEFAULT_CHARSET
@@ -52,16 +52,16 @@ object frmMain: TfrmMain
       ImageIndex = 2
       OnClick = btnNewClick
     end
-    object btnSaveNew: TToolButton
+    object btnSave: TToolButton
       Left = 62
       Top = 0
       AutoSize = True
-      Caption = 'Save New'
+      Caption = 'Save'
       ImageIndex = 1
-      OnClick = btnSaveNewClick
+      OnClick = btnSaveClick
     end
     object btnDelete: TToolButton
-      Left = 162
+      Left = 126
       Top = 0
       AutoSize = True
       Caption = 'Delete'
@@ -90,8 +90,6 @@ object frmMain: TfrmMain
     TabOrder = 1
     ViewStyle = vsReport
     OnSelectItem = ListView1SelectItem
-    ExplicitTop = 44
-    ExplicitHeight = 681
   end
   object Panel1: TPanel
     Left = 253
@@ -101,8 +99,6 @@ object frmMain: TfrmMain
     Align = alClient
     Caption = 'Panel1'
     TabOrder = 2
-    ExplicitTop = 44
-    ExplicitHeight = 681
     object SynEdit1: TSynEdit
       Left = -13
       Top = 43
@@ -174,7 +170,7 @@ object frmMain: TfrmMain
     Left = 504
     Top = 368
     Bitmap = {
-      494C010103000800240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
