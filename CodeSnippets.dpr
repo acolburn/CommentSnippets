@@ -11,6 +11,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TDataModule1, DM);
+  Application.CreateForm(TDataModule1, records);
   Application.Run;
 end.

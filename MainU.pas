@@ -46,7 +46,7 @@ implementation
 
 procedure TfrmMain.btnDeleteClick(Sender: TObject);
 begin
-  DM.Delete(edtTitle.Text);
+  records.Delete(edtTitle.Text);
   SynEdit1.Clear;
   edtTitle.Clear;
   UpdateDisplay;
@@ -54,31 +54,30 @@ end;
 
 procedure TfrmMain.btnNewClick(Sender: TObject);
 begin
-  DM.EditMode:=new;
+  records.EditMode := new;
   SynEdit1.Clear;
   edtTitle.Clear;
-  ListView1.Selected:=nil;
-  //item:=ListView1.Items.Add;
-  //as soon as user hits return then? ...
-  //item.Caption:=SynEdit1.Lines[0]; //first row in memo
-  //add a new record to db
-  //use a timer (triggered within SynEdit on change?) to periodically update the new record
-  //UPDATE Snippets SET code=:code WHERE title=:title
+  ListView1.Selected := nil;
+  // item:=ListView1.Items.Add;
+  // as soon as user hits return then? ...
+  // item.Caption:=SynEdit1.Lines[0]; //first row in memo
+  // add a new record to db
+  // use a timer (triggered within SynEdit on change?) to periodically update the new record
 end;
 
 procedure TfrmMain.btnSaveClick(Sender: TObject);
 var
   aTitle, aCode: string;
 begin
-  aTitle:=edtTitle.Text;
-  aCode:=SynEdit1.Text;
-  if DM.EditMode=new then
-   begin
-  DM.Add(aTitle,aCode);
-  DM.EditMode:=edit;
-   end
-   else
-   DM.Update(aTitle,aCode);
+  aTitle := edtTitle.Text;
+  aCode := SynEdit1.Text;
+  if records.EditMode = new then
+  begin
+    records.Add(aTitle, aCode);
+    records.EditMode := edit;
+  end
+  else
+    records.Update(aTitle, aCode);
 
   UpdateDisplay;
 end;
@@ -86,31 +85,22 @@ end;
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
   UpdateDisplay;
-  DM.EditMode:=edit;
+  records.EditMode := edit;
 end;
 
-  {The OnSelectItem event tells you the item being changed and whether it is being
-  selected or unselected. So it is triggered when the
-  old item is being unselected, AND AGAIN for the new item that is becoming selected.}
 procedure TfrmMain.ListView1SelectItem(Sender: TObject; Item: TListItem;
   Selected: Boolean);
 begin
   SynEdit1.Lines.Clear;
 
-  //Selected=false when the old item is being unselected
-//  if Selected=false then
-//  begin
-//    DM.SelTitle:=Item.Caption;
-//  end;
-
-
-  //Selected=true when the new item is being selected
-  if Selected=true then
+  // Selected=true when the new item is selected
+  if Selected = true then
   begin
-  //display title
-  edtTitle.Text:=Item.Caption;
-  SynEdit1.Text:=DM.GetCode(Item.Caption);
-  DM.SelTitle:=Item.Caption;
+    // display title
+    edtTitle.Text := Item.Caption;
+    SynEdit1.Text := records.GetCode(Item.Caption);
+    // tell DM selected item has changed
+    records.SelTitle := Item.Caption;
   end;
 
 end;
@@ -125,7 +115,7 @@ begin
   ListView1.Clear;
   sl := TStringList.Create;
   try
-    sl.CommaText := DM.GetTitles;
+    sl.CommaText := records.GetTitles;
     for I := 0 to sl.Count - 1 do
     begin
       Item := ListView1.Items.Add;
