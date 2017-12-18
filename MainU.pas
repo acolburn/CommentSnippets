@@ -46,7 +46,6 @@ begin
   //records.Delete(edtTitle.Text);
   records.Delete(SynEdit1.Lines[0]);
   SynEdit1.Clear;
-  edtTitle.Clear;
   UpdateDisplay;
 end;
 
@@ -54,7 +53,6 @@ procedure TfrmMain.btnNewClick(Sender: TObject);
 begin
   records.EditMode := new;
   SynEdit1.Clear;
-  edtTitle.Clear;
   ListView1.Selected := nil;
   // item:=ListView1.Items.Add;
   // as soon as user hits return then? ...
@@ -96,7 +94,6 @@ begin
   if Selected = true then
   begin
     // display title
-    edtTitle.Text := Item.Caption;
     SynEdit1.Text := records.GetCode(Item.Caption);
     // tell DM selected item has changed
     records.SelTitle := Item.Caption;
