@@ -21,6 +21,7 @@ type
     property EditMode: TEditMode read FEditMode write FEditMode;
     function GetTitles: string;
     function GetCode(aTitle: string): string;
+    function GetCodeAndTitle(aTitle:string): string;
     procedure Add(aTitle: string; aCode: string);
     procedure Delete(aTitle: string);
     procedure Update(newTitle: string; aCode: string);
@@ -69,6 +70,24 @@ begin
     Query.Active := true;
     // sl.Add(aTitle);
     // sl.Add('');
+    sl.Add(Query.FieldByName('code').AsString);
+    result := sl.Text;
+  finally
+    sl.Free;
+  end;
+end;
+
+function TDataModule1.GetCodeAndTitle(aTitle: string): string;
+var
+  sl:TStringList;
+begin
+   sl := TStringList.Create;
+  try
+    Query.SQL.Text := 'select code from Snippets where title=:aTitle';
+    Query.ParamByName('aTitle').AsString := aTitle;
+    Query.Active := true;
+    sl.Add(aTitle);
+    sl.Add('');
     sl.Add(Query.FieldByName('code').AsString);
     result := sl.Text;
   finally

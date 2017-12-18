@@ -100,10 +100,11 @@ object frmMain: TfrmMain
     Caption = 'Panel1'
     TabOrder = 2
     object SynEdit1: TSynEdit
-      Left = -13
-      Top = 43
-      Width = 773
-      Height = 629
+      Left = 1
+      Top = 1
+      Width = 771
+      Height = 696
+      Align = alClient
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -118,44 +119,10 @@ object frmMain: TfrmMain
       Gutter.Font.Style = []
       Highlighter = SynDWSSyn1
       FontSmoothing = fsmNone
-    end
-    object Panel2: TPanel
-      Left = 1
-      Top = 1
-      Width = 771
-      Height = 41
-      Align = alTop
-      TabOrder = 1
-      DesignSize = (
-        771
-        41)
-      object Label1: TLabel
-        Left = 14
-        Top = 12
-        Width = 37
-        Height = 19
-        Caption = 'Title:'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ParentFont = False
-      end
-      object edtTitle: TEdit
-        Left = 60
-        Top = 9
-        Width = 671
-        Height = 27
-        Anchors = [akLeft, akTop, akRight]
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ParentFont = False
-        TabOrder = 0
-      end
+      ExplicitLeft = -13
+      ExplicitTop = 43
+      ExplicitWidth = 773
+      ExplicitHeight = 629
     end
   end
   object SynDWSSyn1: TSynDWSSyn
@@ -170,7 +137,7 @@ object frmMain: TfrmMain
     Left = 504
     Top = 368
     Bitmap = {
-      494C0101030008002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

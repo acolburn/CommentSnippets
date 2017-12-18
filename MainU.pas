@@ -18,9 +18,6 @@ type
     SynDWSSyn1: TSynDWSSyn;
     btnNew: TToolButton;
     Panel1: TPanel;
-    Panel2: TPanel;
-    Label1: TLabel;
-    edtTitle: TEdit;
     btnSave: TToolButton;
     btnDelete: TToolButton;
     ImageList1: TImageList;
@@ -46,7 +43,8 @@ implementation
 
 procedure TfrmMain.btnDeleteClick(Sender: TObject);
 begin
-  records.Delete(edtTitle.Text);
+  //records.Delete(edtTitle.Text);
+  records.Delete(SynEdit1.Lines[0]);
   SynEdit1.Clear;
   edtTitle.Clear;
   UpdateDisplay;
@@ -69,7 +67,8 @@ procedure TfrmMain.btnSaveClick(Sender: TObject);
 var
   aTitle, aCode: string;
 begin
-  aTitle := edtTitle.Text;
+  //aTitle := edtTitle.Text;
+  aTitle:=SynEdit1.Lines[0];
   aCode := SynEdit1.Text;
   if records.EditMode = new then
   begin
