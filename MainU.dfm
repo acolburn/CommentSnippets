@@ -82,7 +82,7 @@ object frmMain: TfrmMain
       end>
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -19
+    Font.Height = -16
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
