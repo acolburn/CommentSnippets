@@ -3,7 +3,8 @@ program CodeSnippets;
 uses
   Vcl.Forms,
   MainU in 'MainU.pas' {frmMain},
-  DataModule in 'DataModule.pas' {DataModule1: TDataModule};
+  DataModule in 'DataModule.pas' {DataModule1: TDataModule},
+  Snippet in 'Snippet.pas';
 
 {$R *.res}
 

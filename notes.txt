@@ -43,3 +43,19 @@ ability to change/edit title text
 add tag functionality--include optional tags with new records, add tags to existing records, sort records by tag
 (opt.) eliminate edit box, use first row of memo as title--when adding new records, when displaying existing records + editing titles
 replace button text with images
+
+//ADDING DB ID FIELD...
+--UpdateDisplay needs to include ListView item caption, but also id field
+which means DM.GetTitles must become DM.GetRecords, so each ListView.Data
+can point to a TSnippet record.
+--At that point, other methods (Delete, Save, and Select) can pass the selected
+index onto DM
+-->Tried doing these things, and am using a generic list to pass TSnippet objects
+between DM and main form ... getting errors leading me to think there's something
+I don't understand re: memory, creating, and freeing objects. Right now I'm
+not freeing much of anything, because that got rid of some other errors. But
+now there's something going on, I think, in the DM.GetRecords method. If I add,
+delete, etc. that action goes fine; I get the error during GetRecords (called
+from UpdateDisplay). Is there a problem creating aSnippet, adding field values,
+and adding that to the list? Is it something about the list itself? ... Right
+now I'm not destroying anything, either the list or its contents.

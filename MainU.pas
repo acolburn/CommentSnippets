@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, SynEdit, Vcl.ExtCtrls, Vcl.ComCtrls,
   Vcl.ToolWin, DataModule, SynEditHighlighter, SynHighlighterDWS, Vcl.StdCtrls,
-  System.ImageList, Vcl.ImgList;
+  System.ImageList, Vcl.ImgList, Generics.Collections, Snippet;
 
 type
   TfrmMain = class(TForm)
@@ -42,9 +42,14 @@ implementation
 {$R *.dfm}
 
 procedure TfrmMain.btnDeleteClick(Sender: TObject);
+var
+  aIndex: integer;
 begin
-  //records.Delete(edtTitle.Text);
-  records.Delete(SynEdit1.Lines[0]);
+  // records.Delete(edtTitle.Text);
+  // aIndex is id for selected record
+  aIndex := TSnippet(ListView1.Selected.Data).id;
+  // records.Delete(SynEdit1.Lines[0]);
+  records.Delete(aIndex);
   SynEdit1.Clear;
   UpdateDisplay;
 end;
@@ -64,18 +69,22 @@ end;
 procedure TfrmMain.btnSaveClick(Sender: TObject);
 var
   aTitle, aCode: string;
+  aIndex: integer;
 begin
-  //aTitle := edtTitle.Text;
-  aTitle:=SynEdit1.Lines[0];
+  // aTitle := edtTitle.Text;
+  aTitle := SynEdit1.Lines[0];
   aCode := SynEdit1.Text;
   if records.EditMode = new then
   begin
+    // don't inlcude index; this is a new record
     records.Add(aTitle, aCode);
     records.EditMode := edit;
   end
   else
-    records.Update(aTitle, aCode);
-
+  begin
+    aIndex := TSnippet(ListView1.Selected.Data).id;
+    records.Update(aIndex, aTitle, aCode);
+  end;
   UpdateDisplay;
 end;
 
@@ -93,8 +102,8 @@ begin
   // Selected=true when the new item is selected
   if Selected = true then
   begin
-    // display title
-    SynEdit1.Text := records.GetCode(Item.Caption);
+
+    SynEdit1.Text := records.GetCode(TSnippet(Item.Data).id);
     // tell DM selected item has changed
     records.SelTitle := Item.Caption;
   end;
@@ -103,23 +112,33 @@ end;
 
 procedure TfrmMain.UpdateDisplay;
 var
-  sl: TStringList;
+  // sl: TStringList;
   Item: TListItem;
-  I: Integer;
+  aRecord: TSnippet;
 begin
+  // ListView1.Items.BeginUpdate;
+  // ListView1.Clear;
+  // sl := TStringList.Create;
+  // try
+  // sl.CommaText := records.GetTitles;
+  // for I := 0 to sl.Count - 1 do
+  // begin
+  // Item := ListView1.Items.Add;
+  // Item.Caption := sl[I];
+  // end;
+  // finally
+  // sl.Free;
+  // end;
+  // ListView1.Items.EndUpdate;
   ListView1.Items.BeginUpdate;
   ListView1.Clear;
-  sl := TStringList.Create;
-  try
-    sl.CommaText := records.GetTitles;
-    for I := 0 to sl.Count - 1 do
-    begin
-      Item := ListView1.Items.Add;
-      Item.Caption := sl[I];
-    end;
-  finally
-    sl.Free;
+  for aRecord in records.recordList do
+  begin
+    Item := ListView1.Items.Add;
+    Item.Data := aRecord;
+    Item.Caption := aRecord.title;
   end;
+
   ListView1.Items.EndUpdate;
 end;
 
