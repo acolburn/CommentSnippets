@@ -14,12 +14,11 @@ type
     Query: TSQLQuery;
     procedure DataModuleCreate(Sender: TObject);
   private
-    FSelTitle: string;
+    //FSelTitle: string;
     FEditMode: TEditMode;
     FIndex: integer;
     FRecordList: TList<TSnippet>;
   public
-    property SelTitle: string read FSelTitle write FSelTitle;
     property EditMode: TEditMode read FEditMode write FEditMode;
     property Index: integer read FIndex write FIndex;
     property recordList: TList<TSnippet> read FRecordList write FRecordList;

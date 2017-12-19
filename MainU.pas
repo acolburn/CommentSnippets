@@ -93,10 +93,7 @@ begin
   // Selected=true when the new item is selected
   if Selected = true then
   begin
-
     SynEdit1.Text := records.GetCode(TSnippet(Item.Data).id);
-    // tell DM selected item has changed
-    records.SelTitle := Item.Caption;
   end;
 
 end;
