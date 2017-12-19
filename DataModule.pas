@@ -78,8 +78,6 @@ begin
     Query.SQL.Text := 'select code from Snippets where id=:aIndex';
     Query.ParamByName('aIndex').AsInteger := aIndex;
     Query.Active := true;
-    // sl.Add(aTitle);
-    // sl.Add('');
     sl.Add(Query.FieldByName('code').AsString);
     result := sl.Text;
   finally
@@ -97,8 +95,6 @@ begin
     Query.SQL.Text := 'select code from Snippets where id=:aIndex';
     Query.ParamByName('aIndex').AsInteger := aIndex;
     Query.Active := true;
-    // sl.Add(aTitle);
-    // sl.Add('');
     sl.Add(Query.FieldByName('code').AsString);
     result := sl.Text;
   finally
@@ -155,19 +151,6 @@ end;
 
 procedure TDataModule1.Update(aIndex: integer; aTitle, aCode: string);
 begin
-  // // title field unchanged
-  // if (FSelTitle = aTitle) then
-  // Query.SQL.Text := 'update Snippets set code=:aCode where title=:oldTitle'
-  // // title field changed
-  // else if (FSelTitle <> newTitle) then
-  // begin
-  // Query.SQL.Text :=
-  // 'update Snippets set code=:aCode, title=:newTitle where title=:oldTitle';
-  // Query.ParamByName('newTitle').AsString := newTitle;
-  // end;
-  // Query.ParamByName('aCode').AsString := aCode;
-  // Query.ParamByName('oldTitle').AsString := FSelTitle;
-
   Query.Active:=false;
   Query.SQL.Text :=
     'update Snippets set code=:aCode, title=:aTitle where index=:aIndex';

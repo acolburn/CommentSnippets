@@ -45,10 +45,7 @@ procedure TfrmMain.btnDeleteClick(Sender: TObject);
 var
   aIndex: integer;
 begin
-  // records.Delete(edtTitle.Text);
-  // aIndex is id for selected record
   aIndex := TSnippet(ListView1.Selected.Data).id;
-  // records.Delete(SynEdit1.Lines[0]);
   records.Delete(aIndex);
   SynEdit1.Clear;
   UpdateDisplay;
@@ -59,11 +56,6 @@ begin
   records.EditMode := new;
   SynEdit1.Clear;
   ListView1.Selected := nil;
-  // item:=ListView1.Items.Add;
-  // as soon as user hits return then? ...
-  // item.Caption:=SynEdit1.Lines[0]; //first row in memo
-  // add a new record to db
-  // use a timer (triggered within SynEdit on change?) to periodically update the new record
 end;
 
 procedure TfrmMain.btnSaveClick(Sender: TObject);
@@ -71,7 +63,6 @@ var
   aTitle, aCode: string;
   aIndex: integer;
 begin
-  // aTitle := edtTitle.Text;
   aTitle := SynEdit1.Lines[0];
   aCode := SynEdit1.Text;
   if records.EditMode = new then
@@ -112,24 +103,10 @@ end;
 
 procedure TfrmMain.UpdateDisplay;
 var
-  // sl: TStringList;
   Item: TListItem;
   aRecord: TSnippet;
 begin
-  // ListView1.Items.BeginUpdate;
-  // ListView1.Clear;
-  // sl := TStringList.Create;
-  // try
-  // sl.CommaText := records.GetTitles;
-  // for I := 0 to sl.Count - 1 do
-  // begin
-  // Item := ListView1.Items.Add;
-  // Item.Caption := sl[I];
-  // end;
-  // finally
-  // sl.Free;
-  // end;
-  // ListView1.Items.EndUpdate;
+  records.UpdateRecordList;
   ListView1.Items.BeginUpdate;
   ListView1.Clear;
   for aRecord in records.recordList do
