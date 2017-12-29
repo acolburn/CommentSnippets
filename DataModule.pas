@@ -28,7 +28,7 @@ type
     function GetCodeAndTitle(aIndex: integer): string;
     procedure Add(aTitle: string; aCode: string);
     procedure Delete(aIndex: integer);
-    procedure Update(aIndex: integer; aTitle: string; aCode: string);
+    procedure Update(anId: integer; aTitle: string; aCode: string);
   end;
 
 var
@@ -148,14 +148,14 @@ begin
 
 end;
 
-procedure TDataModule1.Update(aIndex: integer; aTitle, aCode: string);
+procedure TDataModule1.Update(anId: integer; aTitle, aCode: string);
 begin
   Query.Active:=false;
   Query.SQL.Text :=
-    'update Snippets set code=:aCode, title=:aTitle where index=:aIndex';
+    'update Snippets set code=:aCode, title=:aTitle where id=:anId';
   Query.ParamByName('aCode').AsString := aCode;
   Query.ParamByName('aTitle').AsString := aTitle;
-  Query.ParamByName('aIndex').AsInteger := aIndex;
+  Query.ParamByName('anId').AsInteger := anId;
 
   Query.ExecSQL();
 end;

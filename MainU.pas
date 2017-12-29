@@ -43,12 +43,15 @@ implementation
 
 procedure TfrmMain.btnDeleteClick(Sender: TObject);
 var
-  aIndex: integer;
+  anId: integer;
 begin
-  aIndex := TSnippet(ListView1.Selected.Data).id;
-  records.Delete(aIndex);
-  SynEdit1.Clear;
-  UpdateDisplay;
+  if ListView1.Selected.Data <> nil then
+  begin
+    anId := TSnippet(ListView1.Selected.Data).id;
+    records.Delete(anId);
+    SynEdit1.Clear;
+    UpdateDisplay;
+  end;
 end;
 
 procedure TfrmMain.btnNewClick(Sender: TObject);
@@ -61,20 +64,24 @@ end;
 procedure TfrmMain.btnSaveClick(Sender: TObject);
 var
   aTitle, aCode: string;
-  aIndex: integer;
+  anId: integer;
 begin
   aTitle := SynEdit1.Lines[0];
   aCode := SynEdit1.Text;
   if records.EditMode = new then
   begin
-    // don't inlcude index; this is a new record
+    // don't include id; this is a new record
     records.Add(aTitle, aCode);
     records.EditMode := edit;
+    //no ListView item selected at this point
+    //newly added items are at the end...that's the one that should be selected?
+    //if nothing's selected, autosave isn't going to work because in a few
+    //seconds this method will be triggered again, with nothing selected
   end
-  else
+  else if (ListView1.Selected <> nil) and (ListView1.Selected.Data <> nil) then
   begin
-    aIndex := TSnippet(ListView1.Selected.Data).id;
-    records.Update(aIndex, aTitle, aCode);
+    anId := TSnippet(ListView1.Selected.Data).id;
+    records.Update(anId, aTitle, aCode);
   end;
   UpdateDisplay;
 end;
@@ -101,10 +108,12 @@ end;
 procedure TfrmMain.UpdateDisplay;
 var
   Item: TListItem;
+  selectedItem:TListItem;
   aRecord: TSnippet;
 begin
   records.UpdateRecordList;
   ListView1.Items.BeginUpdate;
+  selectedItem:=ListView1.Selected; //keep track of what was selected
   ListView1.Clear;
   for aRecord in records.recordList do
   begin
@@ -112,7 +121,7 @@ begin
     Item.Data := aRecord;
     Item.Caption := aRecord.title;
   end;
-
+  ListView1.Selected:=selectedItem; //otherwise nothing will be selected
   ListView1.Items.EndUpdate;
 end;
 
