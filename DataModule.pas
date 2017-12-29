@@ -16,16 +16,15 @@ type
   private
     //FSelTitle: string;
     FEditMode: TEditMode;
-    FIndex: integer;
+    FSelID: integer;
     FRecordList: TList<TSnippet>;
   public
     property EditMode: TEditMode read FEditMode write FEditMode;
-    property Index: integer read FIndex write FIndex;
+    property SelectedID: integer read FSelID write FSelID;
     property recordList: TList<TSnippet> read FRecordList write FRecordList;
     function GetTitles: string;
     procedure UpdateRecordList;
     function GetCode(aIndex: integer): string;
-    function GetCodeAndTitle(aIndex: integer): string;
     procedure Add(aTitle: string; aCode: string);
     procedure Delete(aIndex: integer);
     procedure Update(anId: integer; aTitle: string; aCode: string);
@@ -48,10 +47,11 @@ begin
   Query.ParamByName('aTitle').AsString := aTitle;
   Query.ParamByName('aCode').AsString := aCode;
   Query.ExecSQL();
+  //tells you ID of new record:
   Query.Active:=false;
   Query.SQL.Text:='select last_insert_rowid()';
   Query.Active:=true;
-  Query.Fields[0].AsString; //tells you ID of new record
+  FSelID:=Query.Fields[0].AsInteger;
 end;
 
 // see http://docwiki.embarcadero.com/RADStudio/XE8/en/Tutorial:_Connecting_to_a_SQLite_Database_from_a_VCL_Application
@@ -72,23 +72,6 @@ begin
 end;
 
 function TDataModule1.GetCode(aIndex: integer): string;
-var
-  sl: TStringList;
-begin
-  sl := TStringList.Create;
-  try
-    Query.Active:=false;
-    Query.SQL.Text := 'select code from Snippets where id=:aIndex';
-    Query.ParamByName('aIndex').AsInteger := aIndex;
-    Query.Active := true;
-    sl.Add(Query.FieldByName('code').AsString);
-    result := sl.Text;
-  finally
-    sl.Free;
-  end;
-end;
-
-function TDataModule1.GetCodeAndTitle(aIndex: integer): string;
 var
   sl: TStringList;
 begin
