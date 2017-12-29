@@ -81,7 +81,9 @@ begin
     // seconds this method will be triggered again, with nothing selected
     // newly added items are at the end...let's select that one
     if ListView1.Selected = nil then
-      ListView1.Selected := ListView1.Items[ListView1.Items.Count];
+    begin
+      ListView1.Selected := ListView1.Items[ListView1.Items.Count-1];
+    end;
     records.EditMode := edit;
   end
   else if (ListView1.Selected <> nil) and (ListView1.Selected.Data <> nil) then

@@ -48,6 +48,10 @@ begin
   Query.ParamByName('aTitle').AsString := aTitle;
   Query.ParamByName('aCode').AsString := aCode;
   Query.ExecSQL();
+  Query.Active:=false;
+  Query.SQL.Text:='select last_insert_rowid()';
+  Query.Active:=true;
+  Query.Fields[0].AsString; //tells you ID of new record
 end;
 
 // see http://docwiki.embarcadero.com/RADStudio/XE8/en/Tutorial:_Connecting_to_a_SQLite_Database_from_a_VCL_Application
