@@ -65,25 +65,18 @@ procedure TfrmMain.btnSaveClick(Sender: TObject);
 var
   aTitle, aCode: string;
   anId: integer;
-  memo_x, memo_y:integer;
+  memo_x, memo_y: integer;
+  Item: TListItem;
 begin
   aTitle := SynEdit1.Lines[0];
   aCode := SynEdit1.Text;
-  //save current memo caret position
-  memo_x:=SynEdit1.CaretX;
-  memo_y:=SynEdit1.CaretY;
+  // save current memo caret position
+  memo_x := SynEdit1.CaretX;
+  memo_y := SynEdit1.CaretY;
   if records.EditMode = new then
   begin
     // don't include id; this is a new record
     records.Add(aTitle, aCode);
-    // no ListView item selected at this point
-    // if nothing's selected, autosave isn't going to work because in a few
-    // seconds this method will be triggered again, with nothing selected
-    // newly added items are at the end...let's select that one
-    if ListView1.Selected = nil then
-    begin
-      ListView1.Selected := ListView1.Items[ListView1.Items.Count-1];
-    end;
     records.EditMode := edit;
   end
   else if (ListView1.Selected <> nil) and (ListView1.Selected.Data <> nil) then
@@ -92,9 +85,9 @@ begin
     records.Update(anId, aTitle, aCode);
   end;
   UpdateDisplay;
-  //Update SynEdit caret position
-  SynEdit1.CaretX:=memo_x;
-  SynEdit1.CaretY:=memo_y;
+  // Update SynEdit caret position
+  SynEdit1.CaretX := memo_x;
+  SynEdit1.CaretY := memo_y;
 
 end;
 
@@ -125,6 +118,15 @@ var
 begin
   records.UpdateRecordList;
   ListView1.Items.BeginUpdate;
+  // no ListView item selected at this point, e.g., after adding new record
+  // if nothing's selected, autosave isn't going to work; in a few
+  // seconds this method will be triggered again, with nothing selected
+  if ListView1.Selected = nil then
+  begin
+    for Item in ListView1.Items do
+      if TSnippet(Item.Data).id = records.SelectedID then
+        ListView1.Selected := Item;
+  end;
   if ListView1.Selected <> nil then
     selectedItem := ListView1.Selected // keep track of what was selected
   else
