@@ -24,9 +24,9 @@ type
     property recordList: TList<TSnippet> read FRecordList write FRecordList;
     function GetTitles: string;
     procedure UpdateRecordList;
-    function GetCode(aIndex: integer): string;
+    function GetCode: string;
     procedure Add(aTitle: string; aCode: string);
-    procedure Delete(aIndex: integer);
+    procedure DeleteSelectedRecord;
     procedure Update(anId: integer; aTitle: string; aCode: string);
   end;
 
@@ -63,15 +63,15 @@ begin
   recordList:=TList<TSnippet>.Create;
 end;
 
-procedure TDataModule1.Delete(aIndex: integer);
+procedure TDataModule1.DeleteSelectedRecord;
 begin
   Query.Active:=false;
   Query.SQL.Text := 'delete from Snippets where id=:aIndex';
-  Query.ParamByName('aIndex').AsInteger := aIndex;
+  Query.ParamByName('aIndex').AsInteger := FSelID;
   Query.ExecSQL();
 end;
 
-function TDataModule1.GetCode(aIndex: integer): string;
+function TDataModule1.GetCode: string;
 var
   sl: TStringList;
 begin
@@ -79,7 +79,7 @@ begin
   try
     Query.Active:=false;
     Query.SQL.Text := 'select code from Snippets where id=:aIndex';
-    Query.ParamByName('aIndex').AsInteger := aIndex;
+    Query.ParamByName('aIndex').AsInteger := FSelID;
     Query.Active := true;
     sl.Add(Query.FieldByName('code').AsString);
     result := sl.Text;

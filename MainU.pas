@@ -46,7 +46,7 @@ begin
   if ListView1.Selected.Data <> nil then
   begin
     records.SelectedID := TSnippet(ListView1.Selected.Data).id;
-    records.Delete(records.SelectedID);
+    records.DeleteSelectedRecord;
     SynEdit1.Clear;
     UpdateDisplay;
   end;
@@ -94,7 +94,7 @@ begin
   if Selected = true then
   begin
     records.SelectedID:=TSnippet(Item.Data).id;
-    SynEdit1.Text := records.GetCode(records.SelectedID);
+    SynEdit1.Text := records.GetCode;
   end;
 
 end;
