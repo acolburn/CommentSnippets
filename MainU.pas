@@ -42,13 +42,11 @@ implementation
 {$R *.dfm}
 
 procedure TfrmMain.btnDeleteClick(Sender: TObject);
-var
-  anId: integer;
 begin
   if ListView1.Selected.Data <> nil then
   begin
-    anId := TSnippet(ListView1.Selected.Data).id;
-    records.Delete(anId);
+    records.SelectedID := TSnippet(ListView1.Selected.Data).id;
+    records.Delete(records.SelectedID);
     SynEdit1.Clear;
     UpdateDisplay;
   end;
@@ -64,15 +62,9 @@ end;
 procedure TfrmMain.btnSaveClick(Sender: TObject);
 var
   aTitle, aCode: string;
-  anId: integer;
-  memo_x, memo_y: integer;
-  Item: TListItem;
 begin
   aTitle := SynEdit1.Lines[0];
   aCode := SynEdit1.Text;
-  // save current memo caret position
-  memo_x := SynEdit1.CaretX;
-  memo_y := SynEdit1.CaretY;
   if records.EditMode = new then
   begin
     // don't include id; this is a new record
@@ -81,14 +73,10 @@ begin
   end
   else if (ListView1.Selected <> nil) and (ListView1.Selected.Data <> nil) then
   begin
-    anId := TSnippet(ListView1.Selected.Data).id;
-    records.Update(anId, aTitle, aCode);
+    records.SelectedID := TSnippet(ListView1.Selected.Data).id;
+    records.Update(records.SelectedID, aTitle, aCode);
   end;
   UpdateDisplay;
-  // Update SynEdit caret position
-  SynEdit1.CaretX := memo_x;
-  SynEdit1.CaretY := memo_y;
-
 end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
@@ -105,7 +93,8 @@ begin
   // Selected=true when the new item is selected
   if Selected = true then
   begin
-    SynEdit1.Text := records.GetCode(TSnippet(Item.Data).id);
+    records.SelectedID:=TSnippet(Item.Data).id;
+    SynEdit1.Text := records.GetCode(records.SelectedID);
   end;
 
 end;
@@ -115,12 +104,17 @@ var
   Item: TListItem;
   selectedItem: TListItem;
   aRecord: TSnippet;
+  memo_x, memo_y: integer;
 begin
+  // save current memo caret position
+  memo_x := SynEdit1.CaretX;
+  memo_y := SynEdit1.CaretY;
+
   records.UpdateRecordList;
   ListView1.Items.BeginUpdate;
-  // no ListView item selected at this point, e.g., after adding new record
-  // if nothing's selected, autosave isn't going to work; in a few
-  // seconds this method will be triggered again, with nothing selected
+  // sometimes no ListView item selected at this point, e.g., after adding new record
+  // if nothing's selected, autosave isn't going to work;
+  // this method would be triggered again, with nothing selected
   if ListView1.Selected = nil then
   begin
     for Item in ListView1.Items do
@@ -141,6 +135,10 @@ begin
   if selectedItem <> nil then
     ListView1.Selected := selectedItem; // otherwise nothing will be selected
   ListView1.Items.EndUpdate;
+
+  // Update SynEdit caret position
+  SynEdit1.CaretX := memo_x;
+  SynEdit1.CaretY := memo_y;
 end;
 
 end.
