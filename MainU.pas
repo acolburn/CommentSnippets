@@ -21,6 +21,7 @@ type
     btnSave: TToolButton;
     btnDelete: TToolButton;
     ImageList1: TImageList;
+    Timer1: TTimer;
     procedure FormShow(Sender: TObject);
     procedure ListView1SelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
@@ -104,11 +105,12 @@ var
   Item: TListItem;
   selectedItem: TListItem;
   aRecord: TSnippet;
-  memo_x, memo_y: integer;
+  selLength:integer;
+  selStart: Integer;
 begin
-  // save current memo caret position
-  memo_x := SynEdit1.CaretX;
-  memo_y := SynEdit1.CaretY;
+  // save current memo cursor position
+  selStart:=SynEdit1.SelStart;
+  selLength:=SynEdit1.SelLength;
 
   records.UpdateRecordList;
   ListView1.Items.BeginUpdate;
@@ -136,9 +138,9 @@ begin
     ListView1.Selected := selectedItem; // otherwise nothing will be selected
   ListView1.Items.EndUpdate;
 
-  // Update SynEdit caret position
-  SynEdit1.CaretX := memo_x;
-  SynEdit1.CaretY := memo_y;
+  // Update SynEdit cursor position
+  SynEdit1.SelStart:=selStart;
+  SynEdit1.SelLength:=selLength;
 end;
 
 end.

@@ -273,4 +273,10 @@ object frmMain: TfrmMain
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000}
   end
+  object Timer1: TTimer
+    Interval = 2000
+    OnTimer = btnSaveClick
+    Left = 408
+    Top = 392
+  end
 end
