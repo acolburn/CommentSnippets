@@ -65,18 +65,24 @@ procedure TfrmMain.btnSaveClick(Sender: TObject);
 var
   aTitle, aCode: string;
   anId: integer;
+  memo_x, memo_y:integer;
 begin
   aTitle := SynEdit1.Lines[0];
   aCode := SynEdit1.Text;
+  //save current memo caret position
+  memo_x:=SynEdit1.CaretX;
+  memo_y:=SynEdit1.CaretY;
   if records.EditMode = new then
   begin
     // don't include id; this is a new record
     records.Add(aTitle, aCode);
+    // no ListView item selected at this point
+    // if nothing's selected, autosave isn't going to work because in a few
+    // seconds this method will be triggered again, with nothing selected
+    // newly added items are at the end...let's select that one
+    if ListView1.Selected = nil then
+      ListView1.Selected := ListView1.Items[ListView1.Items.Count];
     records.EditMode := edit;
-    //no ListView item selected at this point
-    //newly added items are at the end...that's the one that should be selected?
-    //if nothing's selected, autosave isn't going to work because in a few
-    //seconds this method will be triggered again, with nothing selected
   end
   else if (ListView1.Selected <> nil) and (ListView1.Selected.Data <> nil) then
   begin
@@ -84,6 +90,10 @@ begin
     records.Update(anId, aTitle, aCode);
   end;
   UpdateDisplay;
+  //Update SynEdit caret position
+  SynEdit1.CaretX:=memo_x;
+  SynEdit1.CaretY:=memo_y;
+
 end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
@@ -108,12 +118,15 @@ end;
 procedure TfrmMain.UpdateDisplay;
 var
   Item: TListItem;
-  selectedItem:TListItem;
+  selectedItem: TListItem;
   aRecord: TSnippet;
 begin
   records.UpdateRecordList;
   ListView1.Items.BeginUpdate;
-  selectedItem:=ListView1.Selected; //keep track of what was selected
+  if ListView1.Selected <> nil then
+    selectedItem := ListView1.Selected // keep track of what was selected
+  else
+    selectedItem := nil;
   ListView1.Clear;
   for aRecord in records.recordList do
   begin
@@ -121,7 +134,8 @@ begin
     Item.Data := aRecord;
     Item.Caption := aRecord.title;
   end;
-  ListView1.Selected:=selectedItem; //otherwise nothing will be selected
+  if selectedItem <> nil then
+    ListView1.Selected := selectedItem; // otherwise nothing will be selected
   ListView1.Items.EndUpdate;
 end;
 
